@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from tqdm import tqdm
+from averagedata import avgdata, avgseq
 import cupy as cp
 
 
@@ -18,10 +19,12 @@ if __name__ == "__main__":
     df = pd.read_csv('train.csv')
     usefuldata = df.iloc[:, 2:5]
     train_data = usefuldata.values.T
+    #train_data = avgdata(train_data)
 
     df1 = pd.read_csv('test.csv')
     usefuldata1 = df1.iloc[:, 2:5]
     tdata = usefuldata1.values.T
+    #tdata = avgdata(tdata)
 
     epochs = 20
     for i in tqdm(range(epochs)):
@@ -38,7 +41,7 @@ if __name__ == "__main__":
 
     # test
     state_seq = htesting(q, A, g, tdata)
-
+    #state_seq = avgseq(state_seq)
     plt.plot(state_seq)
     plt.xlabel("time point")
     plt.ylabel("State")

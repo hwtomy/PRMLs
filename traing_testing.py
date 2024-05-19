@@ -8,7 +8,7 @@ def training(q, A, g, x):
     mc = MarkovChain(q, A)
     HMM1 = HMM(mc, g)
     pX = HMM1.probp(x)
-    pX = pX / np.max(pX, axis=0)  # normalized
+    pX = pX / np.max(pX, axis=0)  # scaler
     #print(pX)
 
     alpha_hat, c = mc.forward(pX)
@@ -63,7 +63,7 @@ def training(q, A, g, x):
     data = x.T
     # update q
     q_update = gamma[:, 0]
-    gam = np.array(gamma)
+    gam = gamma
     # print(gam.shape)
     mean1 = np.zeros(data.shape)
     mean = np.zeros((len(g), len(data[0])))
@@ -93,7 +93,7 @@ def htesting(q, A, g, x):
     HMM1 = HMM(mc, g)
     pX = HMM1.probp(x)
     # print(pX)
-    pX = pX / np.max(pX, axis=0)  # normalized
+    pX = pX / np.max(pX, axis=0) # scaler
 
     alpha, c = mc.forward(pX)
     alpha = alpha.T
